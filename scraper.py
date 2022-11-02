@@ -8,11 +8,17 @@ import json
 url = "https://en.wikipedia.org/wiki/History_of_Mexico"
 
 def get_citations_needed_count(url):
+    '''
+    this funcion accpet the url and return the number of Citation needed
+    '''
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
     return len(soup.find_all("a",title="Wikipedia:Citation needed"))
  
 def get_citations_needed_report(url):
+    '''
+    this function shows wikipedia the paragraph that needs a citation 
+    '''
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
   
@@ -25,6 +31,7 @@ def get_citations_needed_report(url):
 if __name__=="__main__":
     print(get_citations_needed_count(url))
     print(get_citations_needed_report(url))
+    # ---------------------report file ---------------- 
     json_data = json.dumps(get_citations_needed_report(url))
     with open('report_citations_needed.json', 'w') as file :
     
